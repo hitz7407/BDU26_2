@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ms" data-bs-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>KEJOHANAN RAGBI SENTUH BANDAR UTAMA DAMANSARA PEREMPUAN BAWAH 16 TAHUN</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+:root {
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+}
+
+[data-bs-theme="dark"] {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-color: #f8fafc;
+  --border-color: #334155;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.font-sporty {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.header-bar {
+  background: #0f172a;
+  color: #fff;
+  padding: 18px 0;
+  border-bottom: 4px solid #2563eb;
+}
+
+.header-title {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-tabs .nav-link {
+  font-weight: 700;
+  color: #64748b;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.nav-tabs .nav-link.active {
+  color: #2563eb;
+  border-bottom: 3px solid #2563eb;
+}
+
+.score-cell {
+  font-family: 'Oswald', monospace;
+  font-weight: 700;
+  font-size: 1.25rem;
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 4px 14px;
+  border-radius: 6px;
+  display: inline-block;
+  min-width: 75px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+.score-cell.upcoming {
+  background: #e2e8f0;
+  color: #64748b;
+  font-size: 0.9rem;
+  box-shadow: none;
+}
+
+.status-pill {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+.status-finished { background: #dcfce7; color: #15803d; }
+.status-upcoming { background: #fef3c7; color: #b45309; }
+
+.winner-team {
+  color: #15803d !important;
+  font-weight: 800 !important;
+  background-color: rgba(34, 197, 94, 0.12);
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.placeholder-team {
+  font-style: italic;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* KPI CARDS STYLING */
+.kpi-card {
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  padding: 14px 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.kpi-card:hover { transform: translateY(-3px); }
+.kpi-card .kpi-icon {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  font-size: 2.8rem;
+  opacity: 0.2;
+}
+.kpi-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.95;
+}
+.kpi-value {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 2px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.bg-kpi-cup { background: linear-gradient(135deg, #b45309, #f59e0b); }
+.bg-kpi-third { background: linear-gradient(135deg, #0369a1, #0ea5e9); }
+.bg-kpi-plate { background: linear-gradient(135deg, #475569, #94a3b8); }
+.bg-kpi-bowl { background: linear-gradient(135deg, #c2410c, #f97316); }
+.bg-kpi-shield { background: linear-gradient(135deg, #334155, #64748b); }
+.bg-kpi-spoon { background: linear-gradient(135deg, #78350f, #a16207); }
+
+tr.stage-semi td { background-color: #e0f2fe !important; color: #0369a1 !important; }
+tr.stage-spoon td { background-color: #fef3c7 !important; color: #92400e !important; }
+tr.stage-shield td { background-color: #e2e8f0 !important; color: #334155 !important; }
+tr.stage-bowl td { background-color: #ffedd5 !important; color: #c2410c !important; }
+tr.stage-plate td { background-color: #cbd5e1 !important; color: #1e293b !important; }
+tr.stage-cup td { background-color: #fef08a !important; color: #854d0e !important; font-weight: bold; }
+
+/* REKABENTUK KAD PERLAWANAN MESRA TELEFON BIMBIT (MOBILE RESPONSIVE) */
+.mobile-match-card {
+  display: none;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.mobile-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+
+.mobile-card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.mobile-team {
+  flex: 1;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.mobile-score {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  background: #0f172a;
+  color: #38bdf8;
+  border-radius: 8px;
+  margin: 0 10px;
+}
+
+/* KERTAS BRACKET VISUAL KALAH MATI */
+.bracket-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.bracket-category {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.bracket-match {
+  background: var(--bg-color);
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .table-responsive { display: none; }
+  .mobile-match-card { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header-bar mb-4">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div>
+      <h4 class="m-0 header-title fw-bold"><i class="fa-solid fa-trophy text-warning me-2"></i> KEJOHANAN RAGBI SENTUH BANDAR UTAMA DAMANSARA PEREMPUAN BAWAH 16 TAHUN</h4>
+      <small class="text-light-50">Sistem Keputusan & Kedudukan Perlawanan</small>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-light btn-sm fw-bold" id="darkModeToggle" onclick="toggleDarkMode()">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button class="btn btn-primary btn-sm fw-bold" onclick="loadData()">
+        <i class="fa-solid fa-rotate me-1"></i> Muat Semula
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- KPI CARDS KEPUTUSAN JUARA & KATEGORI -->
+  <div id="kpiContainer" class="row g-3 mb-4" style="display: none;">
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="kpi-card bg-kpi-cup">
+        <div class="kpi-title"><i class="fa-solid fa-crown me-1"></i> Juara Cup</div>
+        <div class="kpi-value text-truncate" id="kpiCupWinner">-</div>
+        <i class="fa-solid fa-trophy kpi-icon"></i>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="kpi-card bg-kpi-third">
+        <div class="kpi-title"><i class="fa-solid fa-medal me-1"></i> Ke-3 Cup</div>
+        <div class="kpi-value text-truncate" id="kpiCupThird" style="font-size: 0.9rem;">-</div>
+        <i class="fa-solid fa-award kpi-icon"></i>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="kpi-card bg-kpi-plate">
+        <div class="kpi-title"><i class="fa-solid fa-shield-halved me-1"></i> Juara Plate</div>
+        <div class="kpi-value text-truncate" id="kpiPlateWinner">-</div>
+        <i class="fa-solid fa-shield-halved kpi-icon"></i>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="kpi-card bg-kpi-bowl">
+        <div class="kpi-title"><i class="fa-solid fa-bowl-food me-1"></i> Juara Bowl</div>
+        <div class="kpi-value text-truncate" id="kpiBowlWinner">-</div>
+        <i class="fa-solid fa-bowl-food kpi-icon"></i>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="kpi-card bg-kpi-shield">
+        <div class="kpi-title"><i class="fa-solid fa-shield me-1"></i> Juara Shield</div>
+        <div class="kpi-value text-truncate" id="kpiShieldWinner">-</div>
+        <i class="fa-solid fa-shield kpi-icon"></i>
+      </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="kpi-card bg-kpi-spoon">
+        <div class="kpi-title"><i class="fa-solid fa-utensils me-1"></i> Juara Spoon</div>
+        <div class="kpi-value text-truncate" id="kpiSpoonWinner">-</div>
+        <i class="fa-solid fa-utensils kpi-icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFIKASI STATUS -->
+  <div id="statusAlertBox" class="alert alert-info d-flex align-items-center mb-3" style="display: none !important;">
+    <i class="fa-solid fa-circle-info fs-4 me-3"></i>
+    <div>
+      <strong id="statusAlertTitle">Pusingan Awal Masih Berlangsung</strong>
+      <p class="m-0 small" id="statusAlertDesc">Pusingan Akhir (M25-M35) memaparkan kelayakan/placeholder sehingga kesemua 24 perlawanan Pusingan Awal selesai.</p>
+    </div>
+  </div>
+
+  <!-- TABS MAIN -->
+  <ul class="nav nav-tabs mb-4" id="mainTab">
+    <li class="nav-item">
+      <button class="nav-link active" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-pane">
+        <i class="fa-solid fa-user-plus me-1"></i> Pendaftaran Pasukan
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" id="awal-tab" data-bs-toggle="tab" data-bs-target="#awal-pane">
+        <i class="fa-solid fa-futbol me-1"></i> Pusingan Awal (M1 - M24)
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" id="akhir-tab" data-bs-toggle="tab" data-bs-target="#akhir-pane">
+        <i class="fa-solid fa-trophy me-1"></i> Pusingan Akhir (M25 - M35)
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" id="standings-tab" data-bs-toggle="tab" data-bs-target="#standings-pane">
+        <i class="fa-solid fa-list-ol me-1"></i> Kedudukan Kumpulan
+      </button>
+    </li>
+  </ul>
+
+  <!-- Loading Indicator -->
+  <div id="loading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted fw-bold">Sedang memuatkan data...</p>
+  </div>
+
+  <!-- Error Alert Box -->
+  <div id="errorBox" class="alert alert-danger" style="display: none;"></div>
+
+  <!-- Main Content -->
+  <div class="tab-content" id="tabContent" style="display: none;">
+    
+    <!-- TAB 1: PENDAFTARAN PASUKAN -->
+    <div class="tab-pane fade show active" id="register-pane">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-header bg-dark text-white fw-bold font-sporty fs-5">
+              <i class="fa-solid fa-pen-to-square text-warning me-2"></i> Pendaftaran Pasukan Mengikut Kumpulan
+            </div>
+            <div class="card-body p-4">
+              <div class="mb-3">
+                <label for="regGroupSelect" class="form-label fw-bold">Pilih Kumpulan / Pool:</label>
+                <select id="regGroupSelect" class="form-select fw-bold font-sporty" onchange="populateRegisterForm()">
+                  <option value="A">KUMPULAN A</option>
+                  <option value="B">KUMPULAN B</option>
+                  <option value="C">KUMPULAN C</option>
+                  <option value="D">KUMPULAN D</option>
+                </select>
+              </div>
+              <hr>
+              <div class="mb-3">
+                <label id="lblTeamCode1" class="form-label fw-bold text-primary">Pasukan A1:</label>
+                <input type="text" id="regTeam1" class="form-control" placeholder="Taip nama pasukan...">
+              </div>
+              <div class="mb-3">
+                <label id="lblTeamCode2" class="form-label fw-bold text-primary">Pasukan A2:</label>
+                <input type="text" id="regTeam2" class="form-control" placeholder="Taip nama pasukan...">
+              </div>
+              <div class="mb-3">
+                <label id="lblTeamCode3" class="form-label fw-bold text-primary">Pasukan A3:</label>
+                <input type="text" id="regTeam3" class="form-control" placeholder="Taip nama pasukan...">
+              </div>
+              <div class="mb-3">
+                <label id="lblTeamCode4" class="form-label fw-bold text-primary">Pasukan A4:</label>
+                <input type="text" id="regTeam4" class="form-control" placeholder="Taip nama pasukan...">
+              </div>
+              <button class="btn btn-primary w-100 fw-bold font-sporty fs-5 py-2 mt-2" onclick="saveTeamRegistration()">
+                <i class="fa-solid fa-floppy-disk me-1"></i> Simpan Pendaftaran Pasukan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: PUSINGAN AWAL (M1 - M24) -->
+    <div class="tab-pane fade" id="awal-pane">
+      <div class="row g-2 mb-3 align-items-center">
+        <div class="col-md-4">
+          <input type="text" id="searchAwal" class="form-control" placeholder="Cari pasukan Pusingan Awal..." onkeyup="renderAwalTable()">
+        </div>
+        <div class="col-md-3">
+          <select id="filterStatusAwal" class="form-select" onchange="renderAwalTable()">
+            <option value="ALL">Semua Status</option>
+            <option value="FINISHED">Selesai (Ada Skor)</option>
+            <option value="UPCOMING">Akan Datang / Belum Mula</option>
+          </select>
+        </div>
+        <div class="col-md-5 text-md-end d-flex gap-2 justify-content-md-end mt-2 mt-md-0">
+          <button class="btn btn-outline-success btn-sm fw-bold" onclick="exportData('awalPrintable', 'PNG', 'Pusingan_Awal')">
+            <i class="fa-solid fa-image me-1"></i> PNG
+          </button>
+          <button class="btn btn-outline-danger btn-sm fw-bold" onclick="exportData('awalPrintable', 'PDF', 'Pusingan_Awal')">
+            <i class="fa-solid fa-file-pdf me-1"></i> PDF
+          </button>
+        </div>
+      </div>
+      <div id="awalPrintable">
+        <div class="table-responsive card border-0 shadow-sm rounded-3">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark text-center font-sporty">
+              <tr>
+                <th style="width: 45px;">No</th>
+                <th style="width: 110px;">Perlawanan</th>
+                <th style="width: 75px;">Masa</th>
+                <th style="width: 120px;">Kumpulan</th>
+                <th class="text-end" style="width: 22%;">Pasukan 1</th>
+                <th style="width: 100px;">Skor</th>
+                <th class="text-start" style="width: 22%;">Pasukan 2</th>
+                <th style="width: 100px;">Status</th>
+                <th class="no-export" style="width: 80px;">Tindakan</th>
+              </tr>
+            </thead>
+            <tbody id="awalTableBody" class="text-center"></tbody>
+          </table>
+        </div>
+        <!-- PAPARAN KAD UNTUK SKRIN TELEFON -->
+        <div id="awalMobileCards"></div>
+      </div>
+    </div>
+
+    <!-- TAB 3: PUSINGAN AKHIR (M25 - M35) -->
+    <div class="tab-pane fade" id="akhir-pane">
+      <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab">
+        <li class="nav-item">
+          <button class="nav-link active fw-bold" id="pills-list-tab" data-bs-toggle="pill" data-bs-target="#pills-list">Jadual Perlawanan</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link fw-bold" id="pills-bracket-tab" data-bs-toggle="pill" data-bs-target="#pills-bracket">Carta Bracket Kalah Mati</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="pills-tabContent">
+        <!-- Sub-tab 1: Senarai Jadual -->
+        <div class="tab-pane fade show active" id="pills-list">
+          <div class="row g-2 mb-3 align-items-center">
+            <div class="col-md-4">
+              <input type="text" id="searchAkhir" class="form-control" placeholder="Cari pasukan Pusingan Akhir..." onkeyup="renderAkhirTable()">
+            </div>
+            <div class="col-md-3">
+              <select id="filterStatusAkhir" class="form-select" onchange="renderAkhirTable()">
+                <option value="ALL">Semua Status</option>
+                <option value="FINISHED">Selesai (Ada Skor)</option>
+                <option value="UPCOMING">Akan Datang / Belum Mula</option>
+              </select>
+            </div>
+            <div class="col-md-5 text-md-end d-flex gap-2 justify-content-md-end mt-2 mt-md-0">
+              <button class="btn btn-outline-success btn-sm fw-bold" onclick="exportData('akhirPrintable', 'PNG', 'Pusingan_Akhir')">
+                <i class="fa-solid fa-image me-1"></i> PNG
+              </button>
+              <button class="btn btn-outline-danger btn-sm fw-bold" onclick="exportData('akhirPrintable', 'PDF', 'Pusingan_Akhir')">
+                <i class="fa-solid fa-file-pdf me-1"></i> PDF
+              </button>
+            </div>
+          </div>
+          <div id="akhirPrintable">
+            <div class="table-responsive card border-0 shadow-sm rounded-3">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark text-center font-sporty">
+                  <tr>
+                    <th style="width: 45px;">No</th>
+                    <th style="width: 110px;">Perlawanan</th>
+                    <th style="width: 75px;">Masa</th>
+                    <th style="width: 160px;">Peringkat / Kategori</th>
+                    <th class="text-end" style="width: 22%;">Pasukan 1</th>
+                    <th style="width: 100px;">Skor</th>
+                    <th class="text-start" style="width: 22%;">Pasukan 2</th>
+                    <th style="width: 100px;">Status</th>
+                    <th class="no-export" style="width: 80px;">Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody id="akhirTableBody" class="text-center"></tbody>
+              </table>
+            </div>
+            <!-- PAPARAN KAD UNTUK SKRIN TELEFON -->
+            <div id="akhirMobileCards"></div>
+          </div>
+        </div>
+
+        <!-- Sub-tab 2: Carta Bracket Visual -->
+        <div class="tab-pane fade" id="pills-bracket">
+          <div id="bracketContainer" class="bracket-wrapper"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: KEDUDUKAN KUMPULAN -->
+    <div class="tab-pane fade" id="standings-pane">
+      <div id="standingsList" class="row"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Admin Kemaskini Skor -->
+<div class="modal fade" id="scoreModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title font-sporty fw-bold"><i class="fa-solid fa-lock text-warning me-2"></i>Kemaskini Skor Perlawanan</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center">
+        <input type="hidden" id="editRowId">
+        <h6 id="modalMatchCode" class="text-primary fw-bold mb-3 font-sporty fs-5"></h6>
+        <div class="d-flex align-items-center justify-content-center gap-3 mb-4">
+          <div>
+            <label id="lblTeam1" class="fw-bold d-block mb-1"></label>
+            <input type="number" id="inputScore1" class="form-control text-center fw-bold fs-3 font-sporty" style="width: 90px;">
+          </div>
+          <span class="fs-4 fw-bold text-muted mt-4 font-sporty">VS</span>
+          <div>
+            <label id="lblTeam2" class="fw-bold d-block mb-1"></label>
+            <input type="number" id="inputScore2" class="form-control text-center fw-bold fs-3 font-sporty" style="width: 90px;">
+          </div>
+        </div>
+        <div class="border-top pt-3 text-start">
+          <label for="adminPin" class="form-label fw-bold text-danger small mb-1">
+            <i class="fa-solid fa-key me-1"></i> Sila masukkan Kata Kunci Keselamatan:
+          </label>
+          <input type="password" id="adminPin" class="form-control text-center fw-bold" placeholder="Kata Kunci Admin" autocomplete="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary fw-bold" onclick="saveScore()"><i class="fa-solid fa-floppy-disk me-1"></i> Simpan Skor</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let globalMatchesAwal = [];
+let globalMatchesAkhir = [];
+let globalMatchMapAkhir = {};
+let globalStandings = {};
+let globalRegisteredTeams = {};
+let globalGroupCompleted = false;
+let modalInstance = null;
+
+document.addEventListener("DOMContentLoaded", function() {
+  modalInstance = new bootstrap.Modal(document.getElementById('scoreModal'));
+  loadData();
+});
+
+function toggleDarkMode() {
+  const html = document.documentElement;
+  const currentTheme = html.getAttribute('data-bs-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-bs-theme', newTheme);
+  document.getElementById('darkModeToggle').innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-sun text-warning"></i>' : '<i class="fa-solid fa-moon"></i>';
+}
+
+function loadData() {
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("tabContent").style.display = "none";
+  document.getElementById("kpiContainer").style.display = "none";
+  document.getElementById("statusAlertBox").style.setProperty('display', 'none', 'important');
+  document.getElementById("errorBox").style.display = "none";
+
+  google.script.run
+    .withSuccessHandler(function(response) {
+      document.getElementById("loading").style.display = "none";
+      if (!response.success) {
+        document.getElementById("errorBox").style.display = "block";
+        document.getElementById("errorBox").innerText = "Ralat: " + response.error;
+        return;
+      }
+
+      globalMatchesAwal = response.matchesAwal;
+      globalMatchesAkhir = response.matchesAkhir;
+      globalMatchMapAkhir = response.matchMapAkhir || {};
+      globalStandings = response.standings;
+      globalRegisteredTeams = response.registeredTeams || {};
+      globalGroupCompleted = response.groupStageCompleted;
+
+      const alertBox = document.getElementById("statusAlertBox");
+      if (!globalGroupCompleted) {
+        alertBox.classList.remove("alert-success");
+        alertBox.classList.add("alert-info");
+        document.getElementById("statusAlertTitle").innerText = "Pusingan Awal Masih Berlangsung";
+        document.getElementById("statusAlertDesc").innerText = "Pusingan Akhir (M25-M35) memaparkan kelayakan/placeholder sehingga kesemua 24 perlawanan Pusingan Awal selesai.";
+      } else {
+        alertBox.classList.remove("alert-info");
+        alertBox.classList.add("alert-success");
+        document.getElementById("statusAlertTitle").innerText = "Pusingan Awal Selesai!";
+        document.getElementById("statusAlertDesc").innerText = "Semua nama pasukan Pusingan Akhir (M25-M35) dikemas kini secara automatik berdasarkan kedudukan kumpulan.";
+      }
+      alertBox.style.setProperty('display', 'flex', 'important');
+
+      if (response.champions) {
+        document.getElementById("kpiCupWinner").innerText = response.champions.cupWinner;
+        document.getElementById("kpiCupThird").innerText = response.champions.cupThird;
+        document.getElementById("kpiPlateWinner").innerText = response.champions.plateWinner;
+        document.getElementById("kpiBowlWinner").innerText = response.champions.bowlWinner;
+        document.getElementById("kpiShieldWinner").innerText = response.champions.shieldWinner;
+        document.getElementById("kpiSpoonWinner").innerText = response.champions.spoonWinner;
+      }
+
+      document.getElementById("kpiContainer").style.display = "flex";
+      document.getElementById("tabContent").style.display = "block";
+
+      renderAwalTable();
+      renderAkhirTable();
+      renderBracket();
+      renderStandings();
+      populateRegisterForm();
+    })
+    .withFailureHandler(function(err) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("errorBox").style.display = "block";
+      document.getElementById("errorBox").innerText = "Ralat Komunikasi: " + err;
+    })
+    .getDashboardData();
+}
+
+function renderAwalTable() {
+  const tbody = document.getElementById("awalTableBody");
+  const mobileCards = document.getElementById("awalMobileCards");
+  const search = document.getElementById("searchAwal").value.toUpperCase();
+  const statusFilter = document.getElementById("filterStatusAwal").value;
+  tbody.innerHTML = "";
+  mobileCards.innerHTML = "";
+
+  const filtered = globalMatchesAwal.filter(m => {
+    const matchSearch = m.team1.toUpperCase().includes(search) ||
+                        m.team2.toUpperCase().includes(search) ||
+                        m.matchCode.toUpperCase().includes(search) ||
+                        m.pool.toUpperCase().includes(search);
+    const matchStatus = (statusFilter === "ALL") || (m.status === statusFilter);
+    return matchSearch && matchStatus;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4 text-muted">Tiada perlawanan dijumpai.</td></tr>';
+    mobileCards.innerHTML = '<div class="text-center py-4 text-muted">Tiada perlawanan dijumpai.</div>';
+    return;
+  }
+
+  filtered.forEach(m => {
+    const isFinished = m.status === "FINISHED";
+    const statusBadge = isFinished
+      ? '<span class="status-pill status-finished font-sporty">SELESAI</span>'
+      : '<span class="status-pill status-upcoming font-sporty">BELUM MULA</span>';
+    const scoreDisplay = isFinished
+      ? `<span class="score-cell">${m.score1}-${m.score2}</span>`
+      : '<span class="score-cell upcoming">VS</span>';
+
+    let team1Display = m.team1;
+    let team2Display = m.team2;
+
+    if (isFinished && m.winningTeamIndex === 1) {
+      team1Display = `<span class="winner-team"><i class="fa-solid fa-circle-check text-success me-1"></i>${m.team1}</span>`;
+    } else if (isFinished && m.winningTeamIndex === 2) {
+      team2Display = `<span class="winner-team">${m.team2} <i class="fa-solid fa-circle-check text-success ms-1"></i></span>`;
+    }
+
+    tbody.innerHTML += `
+      <tr>
+        <td class="fw-bold font-sporty fs-6">${m.no}</td>
+        <td class="fw-bold font-sporty text-primary">${m.matchCode}</td>
+        <td><small class="fw-semibold font-sporty"><i class="fa-regular fa-clock me-1"></i>${m.time}</small></td>
+        <td><span class="badge bg-primary">${m.pool}</span></td>
+        <td class="text-end fw-bold">${team1Display}</td>
+        <td>${scoreDisplay}</td>
+        <td class="text-start fw-bold">${team2Display}</td>
+        <td>${statusBadge}</td>
+        <td class="no-export">
+          <button class="btn btn-sm btn-outline-primary py-0 px-2 fw-bold"
+            onclick="openEditModal(${m.rowId}, '${m.matchCode}', '${m.stage}', '${m.team1.replace(/'/g, "\\'")}', '${m.team2.replace(/'/g, "\\'")}', '${m.score1}', '${m.score2}')">
+            <i class="fa-solid fa-pen-to-square"></i> Skor
+          </button>
+        </td>
+      </tr>`;
+
+    mobileCards.innerHTML += `
+      <div class="mobile-match-card">
+        <div class="mobile-card-header">
+          <span><strong>M${m.no}</strong> | ${m.matchCode} (${m.pool})</span>
+          <span><i class="fa-regular fa-clock me-1"></i>${m.time} | Padang ${m.venue}</span>
+        </div>
+        <div class="mobile-card-body mb-2">
+          <div class="mobile-team text-start">${team1Display}</div>
+          <div class="mobile-score">${m.score1} - ${m.score2}</div>
+          <div class="mobile-team text-end">${team2Display}</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+          ${statusBadge}
+          <button class="btn btn-sm btn-outline-primary py-0 px-2 fw-bold"
+            onclick="openEditModal(${m.rowId}, '${m.matchCode}', '${m.stage}', '${m.team1.replace(/'/g, "\\'")}', '${m.team2.replace(/'/g, "\\'")}', '${m.score1}', '${m.score2}')">
+            <i class="fa-solid fa-pen-to-square me-1"></i> Edit Skor
+          </button>
+        </div>
+      </div>`;
+  });
+}
+
+function renderAkhirTable() {
+  const tbody = document.getElementById("akhirTableBody");
+  const mobileCards = document.getElementById("akhirMobileCards");
+  const search = document.getElementById("searchAkhir").value.toUpperCase();
+  const statusFilter = document.getElementById("filterStatusAkhir").value;
+  tbody.innerHTML = "";
+  mobileCards.innerHTML = "";
+
+  const filtered = globalMatchesAkhir.filter(m => {
+    const matchSearch = m.team1.toUpperCase().includes(search) ||
+                        m.team2.toUpperCase().includes(search) ||
+                        m.matchCode.toUpperCase().includes(search) ||
+                        m.stage.toUpperCase().includes(search);
+    const matchStatus = (statusFilter === "ALL") || (m.status === statusFilter);
+    return matchSearch && matchStatus;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4 text-muted">Tiada perlawanan dijumpai.</td></tr>';
+    mobileCards.innerHTML = '<div class="text-center py-4 text-muted">Tiada perlawanan dijumpai.</div>';
+    return;
+  }
+
+  filtered.forEach(m => {
+    const isFinished = m.status === "FINISHED";
+    const statusBadge = isFinished
+      ? '<span class="status-pill status-finished font-sporty">SELESAI</span>'
+      : '<span class="status-pill status-upcoming font-sporty">BELUM MULA</span>';
+    const scoreDisplay = isFinished
+      ? `<span class="score-cell">${m.score1}-${m.score2}</span>`
+      : '<span class="score-cell upcoming">VS</span>';
+
+    let badgeBg = "bg-secondary";
+    if (m.no === 35) badgeBg = "bg-warning text-dark fw-bold";
+    else if (m.no >= 31 && m.no <= 34) badgeBg = "bg-dark text-white";
+
+    let team1Display = m.team1;
+    let team2Display = m.team2;
+
+    if (!globalGroupCompleted) {
+      team1Display = `<span class="placeholder-team">${m.team1}</span>`;
+      team2Display = `<span class="placeholder-team">${m.team2}</span>`;
+    }
+
+    if (isFinished && m.winningTeamIndex === 1) {
+      team1Display = `<span class="winner-team"><i class="fa-solid fa-circle-check text-success me-1"></i>${m.team1}</span>`;
+    } else if (isFinished && m.winningTeamIndex === 2) {
+      team2Display = `<span class="winner-team">${m.team2} <i class="fa-solid fa-circle-check text-success ms-1"></i></span>`;
+    }
+
+    tbody.innerHTML += `
+      <tr class="${m.categoryClass}">
+        <td class="fw-bold font-sporty fs-6">${m.no}</td>
+        <td class="fw-bold font-sporty text-primary">${m.matchCode}</td>
+        <td><small class="fw-semibold font-sporty"><i class="fa-regular fa-clock me-1"></i>${m.time}</small></td>
+        <td>
+          <span class="badge ${badgeBg}">${m.pool}</span>
+          <br><small class="fw-bold" style="font-size:0.7rem">${m.stage}</small>
+        </td>
+        <td class="text-end fw-bold">${team1Display}</td>
+        <td>${scoreDisplay}</td>
+        <td class="text-start fw-bold">${team2Display}</td>
+        <td>${statusBadge}</td>
+        <td class="no-export">
+          <button class="btn btn-sm btn-outline-primary py-0 px-2 fw-bold"
+            onclick="openEditModal(${m.rowId}, '${m.matchCode}', '${m.stage}', '${m.team1.replace(/'/g, "\\'")}', '${m.team2.replace(/'/g, "\\'")}', '${m.score1}', '${m.score2}')">
+            <i class="fa-solid fa-pen-to-square"></i> Skor
+          </button>
+        </td>
+      </tr>`;
+
+    mobileCards.innerHTML += `
+      <div class="mobile-match-card ${m.categoryClass}">
+        <div class="mobile-card-header">
+          <span><strong>M${m.no}</strong> | ${m.stage}</span>
+          <span><i class="fa-regular fa-clock me-1"></i>${m.time} | Padang ${m.venue}</span>
+        </div>
+        <div class="mobile-card-body mb-2">
+          <div class="mobile-team text-start">${team1Display}</div>
+          <div class="mobile-score">${m.score1} - ${m.score2}</div>
+          <div class="mobile-team text-end">${team2Display}</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+          ${statusBadge}
+          <button class="btn btn-sm btn-outline-primary py-0 px-2 fw-bold"
+            onclick="openEditModal(${m.rowId}, '${m.matchCode}', '${m.stage}', '${m.team1.replace(/'/g, "\\'")}', '${m.team2.replace(/'/g, "\\'")}', '${m.score1}', '${m.score2}')">
+            <i class="fa-solid fa-pen-to-square me-1"></i> Edit Skor
+          </button>
+        </div>
+      </div>`;
+  });
+}
+
+/* JANA CARTA BRACKET VISUAL */
+function renderBracket() {
+  const container = document.getElementById("bracketContainer");
+  const map = globalMatchMapAkhir;
+  container.innerHTML = "";
+
+  const categories = [
+    { name: "CUP", color: "warning", semi1: map[29], semi2: map[30], final: map[35] },
+    { name: "PLATE", color: "secondary", semi1: map[27], semi2: map[28], final: map[34] },
+    { name: "BOWL", color: "danger", semi1: map[27], semi2: map[28], final: map[33] },
+    { name: "SHIELD", color: "dark", semi1: map[25], semi2: map[26], final: map[32] },
+    { name: "SPOON", color: "info", semi1: map[25], semi2: map[26], final: map[31] }
+  ];
+
+  categories.forEach(cat => {
+    let html = `
+      <div class="bracket-category">
+        <h5 class="font-sporty fw-bold text-center text-${cat.color} mb-3"><i class="fa-solid fa-trophy me-2"></i>KATEGORI ${cat.name}</h5>`;
+
+    if (cat.semi1 && cat.semi2) {
+      html += `
+        <div class="small fw-bold text-muted mb-1">SEPARUH AKHIR:</div>
+        <div class="bracket-match">
+          <div class="d-flex justify-content-between"><span>${cat.semi1.team1}</span> <strong>${cat.semi1.score1}</strong></div>
+          <div class="d-flex justify-content-between"><span>${cat.semi1.team2}</span> <strong>${cat.semi1.score2}</strong></div>
+        </div>
+        <div class="bracket-match">
+          <div class="d-flex justify-content-between"><span>${cat.semi2.team1}</span> <strong>${cat.semi2.score1}</strong></div>
+          <div class="d-flex justify-content-between"><span>${cat.semi2.team2}</span> <strong>${cat.semi2.score2}</strong></div>
+        </div>`;
+    }
+
+    if (cat.final) {
+      html += `
+        <div class="small fw-bold text-muted mb-1 mt-3">PERLAWANAN AKHIR:</div>
+        <div class="bracket-match border border-2 border-${cat.color}">
+          <div class="d-flex justify-content-between fw-bold"><span>${cat.final.team1}</span> <strong>${cat.final.score1}</strong></div>
+          <div class="d-flex justify-content-between fw-bold"><span>${cat.final.team2}</span> <strong>${cat.final.score2}</strong></div>
+          <div class="text-center mt-2 border-top pt-1 text-${cat.color} fw-bold">
+            JUARA: ${cat.final.winner !== '-' ? cat.final.winner : 'TBC'}
+          </div>
+        </div>`;
+    }
+
+    html += `</div>`;
+    container.innerHTML += html;
+  });
+}
+
+function renderStandings() {
+  const container = document.getElementById("standingsList");
+  container.innerHTML = "";
+
+  Object.keys(globalStandings).forEach(group => {
+    let rows = globalStandings[group].map((t, idx) => {
+      let pdClass = t.pd > 0 ? "text-success fw-bold" : (t.pd < 0 ? "text-danger fw-bold" : "");
+      let pdValue = t.pd > 0 ? `+${t.pd}` : t.pd;
+      return `
+        <tr>
+          <td class="font-sporty">${idx + 1}</td>
+          <td class="fw-bold text-start">${t.team}</td>
+          <td>${t.p}</td>
+          <td class="text-success fw-bold">${t.w}</td>
+          <td class="text-warning fw-bold">${t.d}</td>
+          <td class="text-danger fw-bold">${t.l}</td>
+          <td>${t.pf}</td>
+          <td>${t.gf}</td>
+          <td class="${pdClass}">${pdValue}</td>
+          <td class="fw-bold bg-light fs-6 font-sporty">${t.pts}</td>
+        </tr>`;
+    }).join("");
+
+    container.innerHTML += `
+      <div class="col-md-6 mb-4">
+        <div class="card border-0 shadow-sm rounded-3">
+          <div class="card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center font-sporty">
+            <span>KUMPULAN ${group}</span>
+            <small class="badge bg-primary">Pool ${group}</small>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-sm text-center mb-0 align-middle">
+              <thead class="table-light font-sporty">
+                <tr>
+                  <th>#</th>
+                  <th class="text-start">Pasukan</th>
+                  <th>P</th>
+                  <th>W</th>
+                  <th>D</th>
+                  <th>L</th>
+                  <th>PF</th>
+                  <th>GF</th>
+                  <th>PD</th>
+                  <th>Mata</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>`;
+  });
+}
+
+function populateRegisterForm() {
+  const selectedGroup = document.getElementById("regGroupSelect").value;
+  const teamList = globalRegisteredTeams[selectedGroup] || [];
+
+  document.getElementById("lblTeamCode1").innerText = "Pasukan " + selectedGroup + "1:";
+  document.getElementById("lblTeamCode2").innerText = "Pasukan " + selectedGroup + "2:";
+  document.getElementById("lblTeamCode3").innerText = "Pasukan " + selectedGroup + "3:";
+  document.getElementById("lblTeamCode4").innerText = "Pasukan " + selectedGroup + "4:";
+
+  document.getElementById("regTeam1").value = (teamList[0] && !teamList[0].match(/^[A-D][1-4]$/)) ? teamList[0] : "";
+  document.getElementById("regTeam2").value = (teamList[1] && !teamList[1].match(/^[A-D][1-4]$/)) ? teamList[1] : "";
+  document.getElementById("regTeam3").value = (teamList[2] && !teamList[2].match(/^[A-D][1-4]$/)) ? teamList[2] : "";
+  document.getElementById("regTeam4").value = (teamList[3] && !teamList[3].match(/^[A-D][1-4]$/)) ? teamList[3] : "";
+}
+
+function saveTeamRegistration() {
+  const groupName = document.getElementById("regGroupSelect").value;
+  const teamList = [
+    document.getElementById("regTeam1").value,
+    document.getElementById("regTeam2").value,
+    document.getElementById("regTeam3").value,
+    document.getElementById("regTeam4").value
+  ];
+
+  document.getElementById("loading").style.display = "block";
+
+  google.script.run
+    .withSuccessHandler(function(res) {
+      if (res.success) {
+        alert(res.message);
+        loadData();
+      } else {
+        alert("Gagal: " + res.message);
+        document.getElementById("loading").style.display = "none";
+      }
+    })
+    .withFailureHandler(function(err) {
+      alert("Ralat Rangkaian: " + err);
+      document.getElementById("loading").style.display = "none";
+    })
+    .registerGroupTeams(groupName, teamList);
+}
+
+function openEditModal(rowId, matchCode, stage, team1, team2, score1, score2) {
+  document.getElementById("editRowId").value = rowId;
+  document.getElementById("modalMatchCode").innerText = stage + " (" + matchCode + ")";
+  document.getElementById("lblTeam1").innerText = team1;
+  document.getElementById("lblTeam2").innerText = team2;
+  document.getElementById("inputScore1").value = score1 !== "-" ? score1 : 0;
+  document.getElementById("inputScore2").value = score2 !== "-" ? score2 : 0;
+  document.getElementById("adminPin").value = "";
+  modalInstance.show();
+}
+
+function saveScore() {
+  const pin = document.getElementById("adminPin").value;
+  const rowId = document.getElementById("editRowId").value;
+  const s1 = document.getElementById("inputScore1").value;
+  const s2 = document.getElementById("inputScore2").value;
+
+  if (!pin) {
+    alert("Sila masukkan Kata Kunci Keselamatan!");
+    return;
+  }
+
+  google.script.run
+    .withSuccessHandler(function(res) {
+      if(res.success) {
+        modalInstance.hide();
+        loadData();
+      } else {
+        alert("Gagal: " + res.message);
+      }
+    })
+    .updateMatchScore(pin, rowId, s1, s2);
+}
+
+function exportData(elementId, format, fileNamePrefix) {
+  const targetElement = document.getElementById(elementId);
+  if (!targetElement) return;
+
+  const noExportElements = targetElement.querySelectorAll('.no-export');
+  noExportElements.forEach(el => el.style.display = 'none');
+
+  html2canvas(targetElement, { scale: 2, useCORS: true }).then(canvas => {
+    noExportElements.forEach(el => el.style.display = '');
+
+    if (format === 'PNG') {
+      const link = document.createElement('a');
+      link.download = fileNamePrefix + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } else if (format === 'PDF') {
+      const imgData = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save(fileNamePrefix + '.pdf');
+    }
+  });
+}
+</script>
+</body>
+</html>
